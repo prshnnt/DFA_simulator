@@ -121,7 +121,7 @@ def create_binary_dfa() -> DFA:
     """Create a DFA that accepts binary strings ending with '01'."""
     dfa = DFA()
     dfa.start_state = "q0"
-    dfa.final_states = {"q2"}
+    dfa.final_states = {"q0"}
 
     # Ends with 01
     dfa.add_transition("q0", "0", "q1")
