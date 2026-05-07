@@ -9,6 +9,7 @@ COLORS = {'bg': (25, 25, 35), 'state': (50, 50, 65), 'border': (150, 150, 170), 
 class Mode(Enum): AUTO = auto(); STEP = auto()
 class AnimState(Enum): IDLE = auto(); MOVING = auto(); PAUSE = auto(); FINISHED = auto()
 
+#main daata struct
 class DFA:
     def __init__(self):
         self.states: Set[str] = set()
