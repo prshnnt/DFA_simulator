@@ -679,7 +679,11 @@ class DFASimulator:
         self.reset_btn: Button = Button(SCREEN_WIDTH // 2 + 10, by, bw, 40, "Reset")
         self.mode_btn: Button = Button(20, by, 120, 40, "Mode: Auto")
         self.step_btn: Button = Button(SCREEN_WIDTH // 2 - 50, by + 50, 100, 35, "Step")
+        self.speed_btn: Button = Button(SCREEN_WIDTH - 140, by, 120, 40, "Speed: 1.0x")
         self.mode: Mode = Mode.AUTO
+        #: Multiplier applied to the Animator's per-step ``dt`` in Auto mode.
+        #: 1.0 = default, 2.0 = twice as fast, 0.5 = half speed.
+        self.speed_multiplier: float = 1.0
         self.state_positions: Dict[str, Tuple[float, float]] = calc_positions(
             list(self.dfa.states), SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 30
         )
