@@ -869,6 +869,7 @@ class DFASimulator:
             self.renderer.draw_symbol(
                 self.sim.input_string[idx], idx, len(self.sim.input_string)
             )
+            self.renderer.draw_step_counter(self.sim.current_index, len(self.sim.input_string))
         if self.animator.state == AnimState.FINISHED:
             self.renderer.draw_result(self.sim.accepted, self.animator.result_alpha)
         mouse = pygame.mouse.get_pos()
