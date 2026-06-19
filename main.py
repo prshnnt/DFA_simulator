@@ -759,6 +759,11 @@ class DFASimulator:
         if self.mode == Mode.STEP and self.animator.state != AnimState.MOVING:
             self.do_step()
 
+    def clear_input(self) -> None:
+        """Clear the input box and reset the simulation without touching the DFA."""
+        self.input_box.clear()
+        self.reset_sim()
+
     def do_step(self) -> None:
         """Perform one transition: update ``SimState`` and prime the animator."""
         if not self.sim.is_running:
