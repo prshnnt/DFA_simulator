@@ -1,9 +1,31 @@
 [project]
 name = "dfa"
 version = "0.1.0"
-description = "Add your description here"
+description = "Animated visual simulator for Deterministic Finite Automata built with pygame-ce"
 readme = "README.md"
 requires-python = ">=3.12"
+license = { file = "LICENSE" }
+keywords = ["dfa", "automata", "visualizer", "pygame", "education"]
+authors = [{ name = "DFA Simulator Contributors" }]
 dependencies = [
     "pygame-ce>=2.5.7",
 ]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.scripts]
+dfa-simulator = "main:DFASimulator"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
