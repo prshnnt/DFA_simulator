@@ -741,6 +741,13 @@ class DFASimulator:
                     self.input_box.handle_backspace()
                 elif event.key == pygame.K_RETURN and not self.start_btn.disabled:
                     self.start_sim()
+                elif event.key == pygame.K_m:
+                    # ``m`` toggles Auto/Step mode without clicking the button.
+                    self.mode = Mode.STEP if self.mode == Mode.AUTO else Mode.AUTO
+                    self.mode_btn.label = f"Mode: {self.mode.name.capitalize()}"
+                    self.reset_sim()
+                elif event.key == pygame.K_ESCAPE:
+                    self.reset_sim()
                 elif event.unicode and self.input_box.active:
                     self.input_box.handle_text(event.unicode)
 
