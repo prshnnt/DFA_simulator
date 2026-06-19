@@ -160,9 +160,12 @@ class SimState:
     def start(self, input_string: str) -> bool:
         """Begin consuming ``input_string``.
 
-        Returns ``False`` if any character in ``input_string`` is not in the
-        DFA's alphabet.  On success, resets runtime state and starts the
-        simulation.
+        The empty string is always accepted by any DFA whose start state is
+        final.  Non-empty strings are accepted only if every character
+        belongs to :attr:`DFA.alphabet`.
+
+        Returns ``True`` on success, ``False`` if any character is not in
+        the DFA's alphabet.
         """
         if not all(c in self.dfa.alphabet for c in input_string):
             return False
@@ -173,6 +176,10 @@ class SimState:
         self.is_finished = False
         self.accepted = False
         return True
+
+    def is_empty_string(self) -> bool:
+        """Return ``True`` iff the input string is the empty string."""
+        return self.input_string == ""
 
     def step(self) -> Optional[Tuple[str, str, str]]:
         """Advance one transition.
