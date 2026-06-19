@@ -641,6 +641,19 @@ def create_binary_dfa() -> DFA:
     return dfa
 
 
+def random_string(alphabet: Set[str], length: int) -> str:
+    """Return a random string of ``length`` characters drawn from ``alphabet``.
+
+    Uses :func:`random.choice` under the hood; if ``alphabet`` is empty,
+    the result is always the empty string.
+    """
+    import random
+
+    if not alphabet:
+        return ""
+    return "".join(random.choice(sorted(alphabet)) for _ in range(length))
+
+
 # ---------------------------------------------------------------------------
 # Application
 # ---------------------------------------------------------------------------
