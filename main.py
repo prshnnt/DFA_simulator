@@ -285,7 +285,7 @@ class Animator:
     #: Default post-transition pause, in milliseconds.
     DEFAULT_PAUSE_MS: int = 200
     #: Frame-time (ms) it takes the result banner to reach full opacity.
-    RESULT_FADE_MS: int = 200
+    RESULT_FADE_MS: int = 500
 
     def __init__(self) -> None:
         self.state: AnimState = AnimState.IDLE
@@ -357,8 +357,8 @@ class Animator:
             if self.pause_elapsed >= self.DEFAULT_PAUSE_MS:
                 self.state = AnimState.IDLE
         elif self.state == AnimState.FINISHED and self.result_alpha < 255:
-            # Linear fade – 0.005 alpha per ms means ~200 ms total.
-            self.result_alpha = min(255, self.result_alpha + int(0.005 * dt))
+            # Linear fade – 0.5 alpha per ms means ~500 ms total.
+            self.result_alpha = min(255, self.result_alpha + int(0.5 * dt))
 
         # Pulse oscillation (kept running in every state so the active state
         # always breathes once we are in a simulation).
