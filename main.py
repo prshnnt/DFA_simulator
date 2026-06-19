@@ -719,6 +719,8 @@ class DFASimulator:
                     self.mode = Mode.STEP if self.mode == Mode.AUTO else Mode.AUTO
                     self.mode_btn.label = f"Mode: {self.mode.name.capitalize()}"
                     self.reset_sim()
+                elif self.speed_btn.contains(pos):
+                    self._cycle_speed()
                 elif self.step_btn.contains(pos) and not self.step_btn.disabled:
                     self.step_sim()
             elif event.type == pygame.KEYDOWN:
@@ -774,7 +776,10 @@ class DFASimulator:
 
     def update(self, dt: float) -> None:
         """Per-frame state update: advance animations and queue auto-steps."""
-        self.animator.update(dt)
+        # Scale delta-time by the current speed multiplier in Auto mode so
+        # that animations play faster or slower without changing the loop.
+        scaled_dt = dt * self.speed_multiplier if self.mode == Mode.AUTO else dt
+        self.animator.update(scaled_dt)
         if (
             self.animator.state == AnimState.IDLE
             and self.sim.is_running
@@ -782,6 +787,13 @@ class DFASimulator:
         ):
             self.do_step()
         self.update_step_btn()
+
+    def _cycle_speed(self) -> None:
+        """Advance the speed multiplier through ``{0.5, 1.0, 2.0, 4.0}``."""
+        steps = (0.5, 1.0, 2.0, 4.0)
+        idx = min(range(len(steps)), key=lambda i: abs(steps[i] - self.speed_multiplier))
+        self.speed_multiplier = steps[(idx + 1) % len(steps)]
+        self.speed_btn.label = f"Speed: {self.speed_multiplier:g}x"
 
     def update_step_btn(self) -> None:
         """Refresh the Step button's disabled flag based on current state."""
