@@ -568,6 +568,17 @@ class Renderer:
         )
         self.screen.blit(txt, txt.get_rect(right=SCREEN_WIDTH - 20, top=15))
 
+    def draw_step_counter(self, current: int, total: int) -> None:
+        """Render the left-aligned ``Step: n/N`` counter.
+
+        ``current`` is the number of transitions already taken, ``total``
+        is the length of the input string.
+        """
+        txt = self.fonts[1].render(
+            f"Step: {current}/{total}", True, COLORS["text"]
+        )
+        self.screen.blit(txt, txt.get_rect(left=20, top=15))
+
 
 # ---------------------------------------------------------------------------
 # Pure helpers (module-level so they are easy to unit-test)
