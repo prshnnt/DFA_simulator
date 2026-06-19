@@ -840,6 +840,7 @@ class DFASimulator:
         self.renderer.draw_button(self.start_btn.rect, self.start_btn.label, self.start_btn.hovered(mouse), self.start_btn.disabled)
         self.renderer.draw_button(self.reset_btn.rect, self.reset_btn.label, self.reset_btn.hovered(mouse))
         self.renderer.draw_button(self.mode_btn.rect, self.mode_btn.label, self.mode_btn.hovered(mouse))
+        self.renderer.draw_button(self.speed_btn.rect, self.speed_btn.label, self.speed_btn.hovered(mouse))
         if self.mode == Mode.STEP:
             self.renderer.draw_button(self.step_btn.rect, self.step_btn.label, self.step_btn.hovered(mouse), self.step_btn.disabled)
 
