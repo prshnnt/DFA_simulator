@@ -517,6 +517,40 @@ class Renderer:
         pygame.draw.circle(self.screen, COLORS["token"], (int(x), int(y)), 12)
         pygame.draw.circle(self.screen, (200, 230, 255), (int(x - 3.6), int(y - 3.6)), 4.8)
 
+    def _draw_arrowhead(
+        self,
+        prev: Tuple[float, float],
+        tip: Tuple[float, float],
+        color: Tuple[int, int, int],
+    ) -> None:
+        """Draw a small filled triangle pointing from ``prev`` to ``tip``."""
+        dx = tip[0] - prev[0]
+        dy = tip[1] - prev[1]
+        length = math.hypot(dx, dy)
+        if length == 0:
+            return
+        ux, uy = dx / length, dy / length
+        size = 10
+        # Base point sits back from the tip along the edge direction.
+        bx = tip[0] - ux * size
+        by = tip[1] - uy * size
+        # Perpendicular for the triangle width.
+        px, py = -uy, ux
+        half = size * 0.6
+        p1 = (bx + px * half, by + py * half)
+        p2 = (bx - px * half, by - py * half)
+        pygame.draw.polygon(self.screen, color, [tip, p1, p2])
+
+    def _draw_arrow(
+        self,
+        start: Tuple[float, float],
+        end: Tuple[float, float],
+        color: Tuple[int, int, int],
+    ) -> None:
+        """Draw a straight line with an arrowhead (used for start-state marker)."""
+        pygame.draw.line(self.screen, color, start, end, 2)
+        self._draw_arrowhead(start, end, color)
+
     def draw_input_box(self, rect: pygame.Rect, text: str, active: bool) -> None:
         """Draw the input rectangle and its current text (left-aligned)."""
         pygame.draw.rect(self.screen, COLORS["input_bg"], rect)
